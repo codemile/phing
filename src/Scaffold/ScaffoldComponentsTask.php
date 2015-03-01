@@ -91,7 +91,7 @@ class ScaffoldComponentsTask extends DirTreeTask
 	{
 		return self::requireIgnore($dir, $file)
 			? false
-			: is_dir($dir.DIRECTORY_SEPARATOR.$file);
+			: is_dir($dir.DIRECTORY_SEPARATOR.$file) && !BuildTask::startsWith($file, self::PREFIX);
 	}
 
 	/**
@@ -103,30 +103,36 @@ class ScaffoldComponentsTask extends DirTreeTask
 	 */
 	private function templateAll($dir, $package, array $parts)
 	{
-		$namespace = implode(".", $parts);
+		$name = empty($parts)
+			? $package
+			: sprintf("%s.%s", implode(".", $parts), $package);
 
 		$lines = array(
 			"/** Do not edit. This file was auto-created **/",
-			sprintf('goog.provide("%s.%s.All");', $namespace, $package),
-			sprintf('goog.require("%s.%s");', $namespace, $package),
+			sprintf('goog.provide("%s.All");', $name),
+			sprintf('goog.require("%s");', $name),
 			''
 		);
 
 		$files = scandir($dir);
 		asort($files);
+		$count = count($lines);
 		foreach ($files as $file)
 		{
-			if(self::requireAll($dir, $file))
+			if (self::requireAll($dir, $file))
 			{
-				$lines[] = sprintf('goog.require("%s.%s.All");', $namespace, str_replace(".js", "", $file));
+				$lines[] = sprintf('goog.require("%s.%s.All");', $name, str_replace(".js", "", $file));
 			}
 		}
-		$lines[] = '';
-		foreach($files as $file)
+		if ($count != count($lines))
 		{
-			if(self::requireFile($dir, $file))
+			$lines[] = '';
+		}
+		foreach ($files as $file)
+		{
+			if (self::requireFile($dir, $file))
 			{
-				$lines[] = sprintf('goog.require("%s.%s");', $namespace, str_replace(".js", "", $file));
+				$lines[] = sprintf('goog.require("%s.%s");', $name, str_replace(".js", "", $file));
 			}
 		}
 
