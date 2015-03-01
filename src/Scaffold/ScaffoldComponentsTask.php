@@ -103,7 +103,6 @@ class ScaffoldComponentsTask extends DirTreeTask
 	 */
 	private function templateAll($dir, $package, array $parts)
 	{
-		$DS = DIRECTORY_SEPARATOR;
 		$namespace = implode(".", $parts);
 
 		$lines = array(
