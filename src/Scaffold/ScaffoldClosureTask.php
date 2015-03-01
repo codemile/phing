@@ -46,7 +46,10 @@ class ScaffoldClosureTask extends ScaffoldComponentsTask
 			: sprintf("%s.%s", implode(".", $parts), $package);
 
 		$lines = array(
-			"/** Do not edit. This file was auto-created **/",
+			'/***********************************************',
+			' * Do not edit. This file will be auto-updated *',
+			' ***********************************************/',
+			'',
 			sprintf('goog.provide("%s.All");', $name),
 			sprintf('goog.require("%s");', $name),
 			''

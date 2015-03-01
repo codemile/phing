@@ -68,7 +68,10 @@ class ScaffoldSASSTask extends ScaffoldComponentsTask
 	{
 		$DS = DIRECTORY_SEPARATOR;
 		$lines = [
-			"/** Do not edit. This file was auto-created **/"
+			'/***********************************************',
+			' * Do not edit. This file will be auto-updated *',
+			' ***********************************************/',
+			''
 		];
 
 		self::eachDirectory($dir, function ($folder) use ($dir, $DS, &$lines)
@@ -86,6 +89,10 @@ class ScaffoldSASSTask extends ScaffoldComponentsTask
 				$lines[] = sprintf('@import "%s/%s";', $component, $component);
 			}
 		});
+
+		$lines[] = '';
+		$lines[] = '@import "Package";';
+		$lines[] = '';
 
 		return $lines;
 	}
