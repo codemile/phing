@@ -58,11 +58,11 @@ class ScaffoldComponentsTask extends DirTreeTask
 	 *
 	 * @return bool
 	 */
-	private static function requireIgnore($dir, $file)
+	private static function requireAll($dir, $file)
 	{
-		$test = BuildTask::endsWith($file, ".Test.js") || BuildTask::startsWith($file, '.');
-
-		return $file[0] == "_" || $file == "." || $file == ".." || $test;
+		return self::requireIgnore($dir, $file)
+			? false
+			: is_dir($dir.DIRECTORY_SEPARATOR.$file) && !BuildTask::startsWith($file, self::PREFIX);
 	}
 
 	/**
@@ -87,11 +87,11 @@ class ScaffoldComponentsTask extends DirTreeTask
 	 *
 	 * @return bool
 	 */
-	private static function requireAll($dir, $file)
+	private static function requireIgnore($dir, $file)
 	{
-		return self::requireIgnore($dir, $file)
-			? false
-			: is_dir($dir.DIRECTORY_SEPARATOR.$file) && !BuildTask::startsWith($file, self::PREFIX);
+		$test = BuildTask::endsWith($file, ".Test.js") || BuildTask::startsWith($file, '.');
+
+		return $file[0] == "_" || $file == "." || $file == ".." || $test;
 	}
 
 	/**
@@ -101,7 +101,7 @@ class ScaffoldComponentsTask extends DirTreeTask
 	 *
 	 * @return array
 	 */
-	private function templateAll($dir, $package, array $parts)
+	private function templateAll_js($dir, $package, array $parts)
 	{
 		$name = empty($parts)
 			? $package
@@ -140,12 +140,66 @@ class ScaffoldComponentsTask extends DirTreeTask
 	}
 
 	/**
+	 * @param string $dir
 	 * @param string $package
 	 * @param array  $parts
 	 *
 	 * @return array
 	 */
-	private function templatePackage($package, array $parts)
+	private function templateAll_sass($dir, $package, array $parts)
+	{
+		$DS = DIRECTORY_SEPARATOR;
+		$lines = [
+			"/** Do not edit. This file was auto-created **/"
+		];
+
+		$files = scandir($dir);
+		asort($files);
+		$count = count($lines);
+		foreach ($files as $file)
+		{
+			if (!is_dir($dir.$DS.$file) || BuildTask::startsWith($file, ".") || BuildTask::startsWith($file,
+																									  self::PREFIX)
+			)
+			{
+				continue;
+			}
+			if (!file_exists($dir.$DS.$file.$DS."_All.scss"))
+			{
+				continue;
+			}
+			$lines[] = sprintf('@import "%s/All";', $file);
+		}
+		if ($count != count($lines))
+		{
+			$lines[] = '';
+		}
+		foreach ($files as $file)
+		{
+			if (!is_dir($dir.$DS.$file) || BuildTask::startsWith($file, ".") || !BuildTask::startsWith($file,
+																									   self::PREFIX)
+			)
+			{
+				continue;
+			}
+			if (!file_exists($dir.$DS.$file.$DS.$file.".scss"))
+			{
+				continue;
+			}
+
+			$lines[] = sprintf('@import "%s/%s";', $file, $file);
+		}
+
+		return $lines;
+	}
+
+	/**
+	 * @param string $package
+	 * @param array  $parts
+	 *
+	 * @return array
+	 */
+	private function templatePackage_js($package, array $parts)
 	{
 		$namespace = implode(".", $parts);
 
@@ -223,13 +277,17 @@ class ScaffoldComponentsTask extends DirTreeTask
 	{
 		$DS = DIRECTORY_SEPARATOR;
 		$jsAll = $dir.$DS."_All.js";
+		$sassAll = $dir.$DS."_All.scss";
 		$jsPackage = $dir.$DS."_Package.js";
 
-		//$this->log($jsAll);
-		$this->writeFile($jsAll, $this->templateAll($dir, $package, $parts), true);
+		// write _ALL.js
+		$this->writeFile($jsAll, $this->templateAll_js($dir, $package, $parts), true);
 
-		//$this->log($jsPackage);
-		$this->writeFile($jsPackage, $this->templatePackage($package, $parts));
+		// write _All.sass
+		$this->writeFile($sassAll, $this->templateAll_sass($dir, $package, $parts), true);
+
+		// write _Package.js
+		$this->writeFile($jsPackage, $this->templatePackage_js($package, $parts));
 	}
 
 	/**
