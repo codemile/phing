@@ -22,9 +22,19 @@ class ScaffoldSASSTask extends ScaffoldComponentsTask
 		{
 			return;
 		}
+
 		$DS = DIRECTORY_SEPARATOR;
 		$sass = $dir.$DS.$package.".scss";
 		$this->writeFile($sass, $this->getComponent($package, $parts));
+
+		// fix the config import
+		$lines = explode(PHP_EOL,file_get_contents($sass));
+		if(count($lines) >= 1 && !!preg_match('/^@import ".*\/Config";$/',trim($lines[0])))
+		{
+			$import = implode("/", array_fill(0, count($parts), ".."));
+			$lines[0] = sprintf("@import \"%s/Config\";", $import);
+			$this->writeFile($sass, $lines, true);
+		}
 	}
 
 	/**
@@ -68,9 +78,9 @@ class ScaffoldSASSTask extends ScaffoldComponentsTask
 	{
 		$DS = DIRECTORY_SEPARATOR;
 		$lines = [
-			'/***********************************************',
-			' * Do not edit. This file will be auto-updated *',
-			' ***********************************************/',
+			'//***********************************************',
+			'//* Do not edit. This file will be auto-updated *',
+			'//***********************************************',
 			''
 		];
 
@@ -130,7 +140,7 @@ class ScaffoldSASSTask extends ScaffoldComponentsTask
 	 */
 	private function getComponent($package, array $parts)
 	{
-		$import = implode("/", array_fill(0, count($parts) - 1, ".."));
+		$import = implode("/", array_fill(0, count($parts), ".."));
 
 		return array(
 			"@import \"{$import}/Config\";",
