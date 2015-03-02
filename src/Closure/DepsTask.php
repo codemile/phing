@@ -10,15 +10,23 @@ class DepsTask extends BuildTask
 	/**
 	 * @var FileSet[] A collection of FileSet objects.
 	 */
+
 	private $filesets = array();
 	/**
-	 * @var bool|string The name of the output file.
+	 * @var string The location of the google closure library.
+	 * @see https://github.com/google/closure-library
 	 */
-	private $output = false;
+	private $library;
+
 	/**
-	 * @var bool|string The location of the web root folder.
+	 * @var string The name of the output file.
 	 */
-	private $webroot = false;
+	private $output;
+
+	/**
+	 * @var string The prefix for URLs in deps.js file.
+	 */
+	private $prefix;
 
 	/**
 	 * @return FileSet The new file set object.
@@ -42,17 +50,21 @@ class DepsTask extends BuildTask
 	 */
 	public function main()
 	{
-		if ($this->output === false)
+		if (empty($this->output))
 		{
-			throw new BuildException("You must specify an output file.", $this->location);
+			throw new BuildException("Must specify an output file.", $this->location);
+		}
+
+		if (empty($this->library))
+		{
+			throw new BuildException("Must specific location of Google closure library.", $this->location);
 		}
 
 		$DS = DIRECTORY_SEPARATOR;
-		$closure_library = "..{$DS}..{$DS}closure-library";
 
-		$files = array(
-			"--root=$closure_library{$DS}closure{$DS}goog"
-		);
+		$params = [
+			//"--root={$this->library}{$DS}closure{$DS}goog"
+		];
 
 		foreach ($this->filesets as $fs)
 		{
@@ -62,17 +74,24 @@ class DepsTask extends BuildTask
 			{
 				throw new BuildException("Directory doesn't exist: $dir");
 			}
-			$folder = basename($dir);
-			$files[] = "--root_with_prefix=\"".$dir." ../js/$folder\"";
+			$params[] = "--root_with_prefix=\"{$dir} {$this->prefix}\"";
 		}
 
 		// add files to parameters.
-		$this->params[] = implode(" ", $files);
-		$this->params[] = "--output_file={$this->webroot}{$this->output}";
+		$this->params[] = implode(" ", $params);
+		$this->params[] = "--output_file={$this->output}";
 
 		$options = implode(" ", $this->params);
 
-		$this->shell("python {$closure_library}{$DS}closure{$DS}bin{$DS}build{$DS}depswriter.py $options");
+		$this->shell("python {$this->library}{$DS}closure{$DS}bin{$DS}build{$DS}depswriter.py $options");
+	}
+
+	/**
+	 * @param string $library
+	 */
+	public function setLibrary($library)
+	{
+		$this->library = str_replace('/', DIRECTORY_SEPARATOR, $library);
 	}
 
 	/**
@@ -80,14 +99,14 @@ class DepsTask extends BuildTask
 	 */
 	public function setOutput($filename)
 	{
-		$this->output = $filename;
+		$this->output = str_replace('/', DIRECTORY_SEPARATOR, $filename);
 	}
 
 	/**
-	 * @param string $path The path to the web root.
+	 * @param string $prefix
 	 */
-	public function setWebroot($path)
+	public function setPrefix($prefix)
 	{
-		$this->webroot = realpath($path);
+		$this->prefix = $prefix;
 	}
 }
