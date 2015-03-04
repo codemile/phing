@@ -1,4 +1,13 @@
 <phpunit>
+    <!-- A filter to make sure we don't count tests in the code coverage report -->
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./src</directory>
+            <exclude>
+                <directory>./tests</directory>
+            </exclude>
+        </whitelist>
+    </filter>
     <testsuites>
         <testsuite name="Phing">
             <directory suffix="Test.php">./tests</directory>
