@@ -5,7 +5,7 @@ namespace GemsPhing;
 /**
  * Class BuildTask
  */
-class BuildTask extends \Task
+class GemsTask extends \Task
 {
 	/**
 	 * @var array A list of parameters for a shell command.

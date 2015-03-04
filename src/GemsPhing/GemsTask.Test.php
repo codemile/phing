@@ -7,6 +7,6 @@ class BuildTaskTest extends PHPUnit_Framework_TestCase
 	 */
 	public function endsWith()
 	{
-		$this->assertTrue(GemsPhing\BuildTask::endsWith("Spaceship","ship"));
+		$this->assertTrue(GemsPhing\GemsTask::endsWith("Spaceship","ship"));
 	}
 }
