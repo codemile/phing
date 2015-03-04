@@ -1,9 +1,11 @@
 <?php
 
+namespace GemsPhing;
+
 /**
  * Class BuildTask
  */
-abstract class BuildTask extends Task
+class BuildTask extends \Task
 {
 	/**
 	 * @var array A list of parameters for a shell command.
@@ -43,19 +45,27 @@ abstract class BuildTask extends Task
 	}
 
 	/**
+	 *  This is here. Must be overloaded by real tasks.
+	 */
+	public function main()
+	{
+		throw new \BuildException("Task not implemented.");
+	}
+
+	/**
 	 * Checks if the property has been assign.
 	 *
 	 * @param string $name
 	 * @param string $type
 	 *
-	 * @throws BuildException
+	 * @throws \BuildException
 	 */
 	protected function assertProperty($name, $type)
 	{
 		$value = $this->$name;
 		if ($value === null)
 		{
-			throw new BuildException("You must specify a {$name} property", $this->location);
+			throw new \BuildException("You must specify a {$name} property", $this->location);
 		}
 
 		switch ($type)
@@ -63,41 +73,41 @@ abstract class BuildTask extends Task
 			case 'int':
 				if (!is_int($value))
 				{
-					throw new BuildException("The {$name} property must be an integer.", $this->location);
+					throw new \BuildException("The {$name} property must be an integer.", $this->location);
 				}
 				break;
 			case 'string':
 				if (strlen($value) == 0)
 				{
-					throw new BuildException("The {$name} property can not be an empty string.", $this->location);
+					throw new \BuildException("The {$name} property can not be an empty string.", $this->location);
 				}
 				break;
 			case 'file':
 				if (!file_exists($value))
 				{
-					throw new BuildException(sprintf('File %s does not exist.', $value), $this->location);
+					throw new \BuildException(sprintf('File %s does not exist.', $value), $this->location);
 				}
 				$content = file_get_contents($value);
 				if (strlen($content) == 0)
 				{
-					throw new BuildException(sprintf('Supplied file %s is empty', $value), $this->location);
+					throw new \BuildException(sprintf('Supplied file %s is empty', $value), $this->location);
 				}
 				break;
 			case 'dir':
 				if (!is_dir($value))
 				{
-					throw new BuildException(sprintf('%s does not a directory.', $value), $this->location);
+					throw new \BuildException(sprintf('%s does not a directory.', $value), $this->location);
 				}
 				break;
 		}
 	}
 
 	/**
-	 * @param FileSet[] $fileset A collection of FileSet objects.
+	 * @param \FileSet[] $fileset A collection of FileSet objects.
 	 *
 	 * @returns array of files.
 	 *
-	 * @throws BuildException
+	 * @throws \BuildException
 	 */
 	protected function getFiles($fileset)
 	{
@@ -113,7 +123,7 @@ abstract class BuildTask extends Task
 		}
 		if (empty($files))
 		{
-			throw new BuildException("No files found for task.", $this->location);
+			throw new \BuildException("No files found for task.", $this->location);
 		}
 
 		return $files;
@@ -125,7 +135,7 @@ abstract class BuildTask extends Task
 	 * @param string $command
 	 *
 	 * @return string
-	 * @throws BuildException
+	 * @throws \BuildException
 	 */
 	protected function shell($command)
 	{
@@ -139,7 +149,7 @@ abstract class BuildTask extends Task
 		}
 		if ((int)$code !== 0)
 		{
-			throw new BuildException("Execution of a shell command returned a non-zero result.", $this->location);
+			throw new \BuildException("Execution of a shell command returned a non-zero result.", $this->location);
 		}
 
 		return $output;
