@@ -43,14 +43,6 @@ abstract class BuildTask extends Task
 	}
 
 	/**
-	 * Called to initialize after the close tag in the build.xml file.
-	 */
-	public function init()
-	{
-		parent::init();
-	}
-
-	/**
 	 * Checks if the property has been assign.
 	 *
 	 * @param string $name

@@ -1,5 +1,5 @@
 {
-  "name": "thinkingmedia/Phing",
+  "name": "thinkingmedia/phing",
   "description": "A collection of custom tasks for Phing",
   "minimum-stability": "dev",
   "license": "MIT",

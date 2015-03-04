@@ -4,13 +4,14 @@
         <whitelist>
             <directory suffix=".php">./src</directory>
             <exclude>
-                <directory>./tests</directory>
+                <directory suffix=".Test.php">./src</directory>
             </exclude>
         </whitelist>
     </filter>
+
     <testsuites>
         <testsuite name="Phing">
-            <directory suffix="Test.php">./tests</directory>
+            <directory suffix=".Test.php">./src</directory>
         </testsuite>
     </testsuites>
 </phpunit>
