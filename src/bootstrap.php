@@ -1,6 +1,11 @@
 <?php
+
 /**
  * This is the bootstrap for running phpunit.
  */
-	include "autoload.php";
-	include dirname(dirname(__FILE__))."/vendor/autoload.php";
+
+error_reporting(E_ALL | E_STRICT);
+date_default_timezone_set('Europe/London');
+
+$loader = require(dirname(__DIR__).'/vendor/autoload.php');
+$loader->add('GemsPhing', __DIR__);

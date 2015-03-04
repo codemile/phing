@@ -10,39 +10,7 @@ class GemsTask extends \Task
 	/**
 	 * @var array A list of parameters for a shell command.
 	 */
-	protected $params = array();
-
-	/**
-	 * Checks if a string ends with a string.
-	 *
-	 * @param string $haystack
-	 * @param string $needle
-	 *
-	 * @return bool
-	 */
-	public static function endsWith($haystack, $needle)
-	{
-		$length = strlen($needle);
-		if ($length == 0)
-		{
-			return true;
-		}
-
-		return (substr($haystack, -$length) === $needle);
-	}
-
-	/**
-	 * Checks if a string starts with a string.
-	 *
-	 * @param string $haystack
-	 * @param string $needle
-	 *
-	 * @return bool
-	 */
-	public static function startsWith($haystack, $needle)
-	{
-		return !strncmp($haystack, $needle, strlen($needle));
-	}
+	public $params = array();
 
 	/**
 	 *  This is here. Must be overloaded by real tasks.
@@ -60,12 +28,17 @@ class GemsTask extends \Task
 	 *
 	 * @throws \BuildException
 	 */
-	protected function assertProperty($name, $type)
+	public function assertProperty($name, $type)
 	{
+		if(empty($name) || !property_exists($this,$name))
+		{
+			throw new \BuildException("{$name} property does not exist.", $this->location);
+		}
+
 		$value = $this->$name;
 		if ($value === null)
 		{
-			throw new \BuildException("You must specify a {$name} property", $this->location);
+			throw new \BuildException("You must specify a {$name} property.", $this->location);
 		}
 
 		switch ($type)
@@ -90,7 +63,7 @@ class GemsTask extends \Task
 				$content = file_get_contents($value);
 				if (strlen($content) == 0)
 				{
-					throw new \BuildException(sprintf('Supplied file %s is empty', $value), $this->location);
+					throw new \BuildException(sprintf('Supplied file %s is empty.', $value), $this->location);
 				}
 				break;
 			case 'dir':
@@ -109,7 +82,7 @@ class GemsTask extends \Task
 	 *
 	 * @throws \BuildException
 	 */
-	protected function getFiles($fileset)
+	public function getFiles($fileset)
 	{
 		$files = array();
 		foreach ($fileset as $fs)
@@ -137,7 +110,7 @@ class GemsTask extends \Task
 	 * @return string
 	 * @throws \BuildException
 	 */
-	protected function shell($command)
+	public function shell($command)
 	{
 		$command = "$command 2>&1";
 		$this->log("Executing: $command");
@@ -161,7 +134,7 @@ class GemsTask extends \Task
 	 * @param bool   $value Must be true
 	 * @param string $str   The value to set
 	 */
-	protected function toggle($value, $str)
+	public function toggle($value, $str)
 	{
 		if (!empty($value) && $value)
 		{

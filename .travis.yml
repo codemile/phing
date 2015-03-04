@@ -7,10 +7,10 @@ php:
 script:
   - composer install
   - mkdir -p build/logs
-  - phpunit --bootstrap vendor/bootstrap.php --coverage-clover build/logs/clover.xml
+  - phpunit --bootstrap src/bootstrap.php --coverage-clover build/logs/clover.xml
 
 after_success:
-  - php vendor/bin/coveralls -v'
+  - php vendor/bin/coveralls -v
 
 notifications:
   slack: cgtag:vMfPenstmAFcQeZnYNVp4H6Y
