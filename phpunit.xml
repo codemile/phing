@@ -3,15 +3,15 @@
     <filter>
         <whitelist>
             <directory suffix=".php">./src</directory>
-            <exclude>
-                <directory suffix=".Test.php">./src</directory>
-            </exclude>
         </whitelist>
+        <blacklist>
+            <directory suffix=".Test.php">./tests</directory>
+        </blacklist>
     </filter>
 
     <testsuites>
         <testsuite name="Phing">
-            <directory suffix=".Test.php">./src</directory>
+            <directory suffix=".Test.php">./tests</directory>
         </testsuite>
     </testsuites>
 </phpunit>

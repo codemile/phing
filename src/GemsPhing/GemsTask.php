@@ -26,11 +26,12 @@ class GemsTask extends \Task
 	 * @param string $name
 	 * @param string $type
 	 *
+	 * @returns bool
 	 * @throws \BuildException
 	 */
 	public function assertProperty($name, $type)
 	{
-		if(empty($name) || !property_exists($this,$name))
+		if (empty($name) || !property_exists($this, $name))
 		{
 			throw new \BuildException("{$name} property does not exist.", $this->location);
 		}
@@ -43,14 +44,19 @@ class GemsTask extends \Task
 
 		switch ($type)
 		{
+			case 'num':
+			case 'number':
 			case 'int':
-				if (!is_int($value))
+			case 'integer':
+			case 'float':
+				if (!is_numeric($value))
 				{
 					throw new \BuildException("The {$name} property must be an integer.", $this->location);
 				}
 				break;
+			case 'str':
 			case 'string':
-				if (strlen($value) == 0)
+				if (!is_string($value) || empty($value))
 				{
 					throw new \BuildException("The {$name} property can not be an empty string.", $this->location);
 				}
@@ -60,29 +66,34 @@ class GemsTask extends \Task
 				{
 					throw new \BuildException(sprintf('File %s does not exist.', $value), $this->location);
 				}
-				$content = file_get_contents($value);
-				if (strlen($content) == 0)
+				$size = filesize($value);
+				if ($size == 0 || $size === false)
 				{
 					throw new \BuildException(sprintf('Supplied file %s is empty.', $value), $this->location);
 				}
 				break;
+			case 'directory':
+			case 'folder':
 			case 'dir':
 				if (!is_dir($value))
 				{
-					throw new \BuildException(sprintf('%s does not a directory.', $value), $this->location);
+					throw new \BuildException(sprintf('%s is not a directory.', $value), $this->location);
 				}
 				break;
 		}
+
+		return true;
 	}
 
 	/**
 	 * @param \FileSet[] $fileset A collection of FileSet objects.
+	 * @param bool       $allowEmpty
 	 *
-	 * @returns array of files.
+	 * @return array of files.
 	 *
 	 * @throws \BuildException
 	 */
-	public function getFiles($fileset)
+	public function getFiles(array $fileset, $allowEmpty = true)
 	{
 		$files = array();
 		foreach ($fileset as $fs)
@@ -94,7 +105,8 @@ class GemsTask extends \Task
 				$files[] = $base.'\\'.$file;
 			}
 		}
-		if (empty($files))
+
+		if (!$allowEmpty && empty($files))
 		{
 			throw new \BuildException("No files found for task.", $this->location);
 		}

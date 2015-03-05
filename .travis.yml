@@ -5,7 +5,7 @@ php:
   - 5.6
 
 script:
-  - composer install
+  - composer install --dev
   - mkdir -p build/logs
   - phpunit --bootstrap src/bootstrap.php --coverage-clover build/logs/clover.xml
 
