@@ -6,6 +6,7 @@ php:
 
 script:
   - composer install
+  - composer require satooshi/php-coveralls
   - mkdir -p build/logs
   - phpunit --bootstrap tests/bootstrap.php --coverage-clover build/logs/clover.xml
 

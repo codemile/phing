@@ -121,14 +121,14 @@ class GemsTestTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @test
-	 * @depends                       _construct_1
+	 * @depends  _construct_1
 	 *
 	 * @param \GemsPhing\GemsTask $task
 	 */
 	public function assertProperty_8(GemsPhing\GemsTask $task)
 	{
 		$DS = DIRECTORY_SEPARATOR;
-		$task->Value = realpath(dirname(__FILE__).$DS.'..'.$DS.'data'.$DS.'foo');
+		$task->Value = dirname(dirname(__FILE__)).$DS.'data'.$DS.'foo';
 		$this->assertTrue($task->assertProperty("Value", "dir"));
 	}
 
@@ -144,7 +144,7 @@ class GemsTestTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @test
-	 * @depends                  _construct_1
+	 * @depends _construct_1
 	 *
 	 * @expectedException \BuildException
 	 * @expectedExceptionMessage Task not implemented.

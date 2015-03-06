@@ -9,10 +9,8 @@
       "email": "support@thinkingmedia.ca"
     }
   ],
-  "require-dev": {
-    "satooshi/php-coveralls": "*"
-  },
   "require": {
-    "phing/phing": "2.*"
+    "phing/phing": "2.*",
+    "underscore/underscore.php": "1.*"
   }
 }

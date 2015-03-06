@@ -1,18 +1,20 @@
 <?php
 
-require_once dirname(__DIR__)."/BuildTask.php";
+namespace GemsPhing\Version
+
+use GemsPhing\GemsTask;
 
 /**
  * ReadVersionTask
  *
  * Reads the version number from a version.txt file.
  */
-class ReadVersionTask extends BuildTask
+class ReadVersionTask extends GemsTask
 {
 	/**
 	 * Property for File
 	 *
-	 * @var PhingFile file
+	 * @var \PhingFile file
 	 */
 	protected $file;
 
@@ -26,7 +28,7 @@ class ReadVersionTask extends BuildTask
 	/**
 	 * Main-Method for the Task
 	 *
-	 * @throws  BuildException
+	 * @throws  \BuildException
 	 */
 	public function main()
 	{
@@ -43,7 +45,7 @@ class ReadVersionTask extends BuildTask
 	/**
 	 * Set Property for File containing version formation
 	 *
-	 * @param PhingFile $file
+	 * @param \PhingFile $file
 	 */
 	public function setFile($file)
 	{
