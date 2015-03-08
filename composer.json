@@ -11,6 +11,8 @@
   ],
   "require": {
     "phing/phing": "2.*",
-    "underscore/underscore.php": "1.*"
+    "thinkingmedia/gems-underscore": "dev-master"
+  },
+  "autoload": {
   }
 }

@@ -1,6 +1,8 @@
 <?php
 
-class GemsStringTest extends PHPUnit_Framework_TestCase
+use GemsPhingTest\GemsTest;
+
+class GemsStringTest extends GemsTest
 {
 	/**
 	 * @test

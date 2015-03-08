@@ -1,17 +1,17 @@
-<phpunit>
+<phpunit bootstrap="tests/bootstrap.php">
     <!-- A filter to make sure we don't count tests in the code coverage report -->
     <filter>
         <whitelist>
             <directory suffix=".php">./src</directory>
         </whitelist>
         <blacklist>
-            <directory suffix=".Test.php">./tests</directory>
+            <directory>./tests</directory>
         </blacklist>
     </filter>
 
     <testsuites>
-        <testsuite name="Phing">
-            <directory suffix=".Test.php">./tests</directory>
+        <testsuite name="GemsPhing">
+            <directory suffix=".Test.php">tests/GemsPhing/**</directory>
         </testsuite>
     </testsuites>
 </phpunit>

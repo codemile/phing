@@ -1,6 +1,8 @@
 <?php
 
-class GemsTestTest extends PHPUnit_Framework_TestCase
+use GemsPhingTest\GemsTest;
+
+class GemsTestTest extends GemsTest
 {
 	/**
 	 * @test
@@ -15,7 +17,7 @@ class GemsTestTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @test
-	 * @depends                  _construct_1
+	 * @depends _construct_1
 	 *
 	 * @param \GemsPhing\GemsTask $task
 	 *
@@ -29,7 +31,7 @@ class GemsTestTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @test
-	 * @depends                  _construct_1
+	 * @depends _construct_1
 	 *
 	 * @param \GemsPhing\GemsTask $task
 	 *
@@ -44,7 +46,7 @@ class GemsTestTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @test
-	 * @depends                  _construct_1
+	 * @depends _construct_1
 	 *
 	 * @param \GemsPhing\GemsTask $task
 	 *
@@ -59,7 +61,7 @@ class GemsTestTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @test
-	 * @depends                  _construct_1
+	 * @depends _construct_1
 	 *
 	 * @param \GemsPhing\GemsTask $task
 	 *
@@ -74,7 +76,7 @@ class GemsTestTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @test
-	 * @depends                  _construct_1
+	 * @depends _construct_1
 	 *
 	 * @param \GemsPhing\GemsTask $task
 	 *
@@ -89,7 +91,7 @@ class GemsTestTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @test
-	 * @depends                       _construct_1
+	 * @depends _construct_1
 	 *
 	 * @param \GemsPhing\GemsTask $task
 	 *
@@ -105,7 +107,7 @@ class GemsTestTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @test
-	 * @depends                       _construct_1
+	 * @depends _construct_1
 	 *
 	 * @param \GemsPhing\GemsTask $task
 	 *
@@ -135,6 +137,7 @@ class GemsTestTest extends PHPUnit_Framework_TestCase
 	/**
 	 * @test
 	 * @depends _construct_1
+	 * @depends _construct_1
 	 *
 	 * @param \GemsPhing\GemsTask $task
 	 */
@@ -150,8 +153,6 @@ class GemsTestTest extends PHPUnit_Framework_TestCase
 	 * @expectedExceptionMessage Task not implemented.
 	 *
 	 * @param \GemsPhing\GemsTask $task
-	 *
-	 * @throws BuildException
 	 */
 	public function main_1(GemsPhing\GemsTask $task)
 	{

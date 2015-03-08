@@ -1,0 +1,19 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// +--------------------------------------------------------------------------------------------+ //
+// gems-phing
+//
+// Holds a static string representing the current version of gems-phing
+//
+// gems-phing : Collection of Phing tasks (http://github.com/thinkingmedia/gems-phing)
+// Copyright (c) ThinkingMedia (http://www.thinkingmedia.ca)
+//
+// Licensed under The MIT License
+// Redistributions of files must retain the above copyright notice.
+//
+// @copyright     Copyright (c) ThinkingMedia (http://www.thinkingmedia.ca)
+// @link          http://www.thinkingmedia.ca
+// @package       gems-phing
+// @license       http://www.opensource.org/licenses/mit-license.php MIT License
+// +--------------------------------------------------------------------------------------------+ //
+////////////////////////////////////////////////////////////////////////////////////////////////////
+1.2.3

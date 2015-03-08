@@ -5,7 +5,7 @@ namespace GemsPhing;
 /**
  * Class BuildTask
  */
-class GemsTask extends \Task
+abstract class GemsTask extends \Task
 {
 	/**
 	 * @var array A list of parameters for a shell command.
@@ -13,11 +13,11 @@ class GemsTask extends \Task
 	public $params = array();
 
 	/**
-	 *  This is here. Must be overloaded by real tasks.
+	 * Assign the project to the logger.
 	 */
-	public function main()
+	public function init()
 	{
-		throw new \BuildException("Task not implemented.");
+		GemsLog::set($this->getProject());
 	}
 
 	/**
@@ -28,6 +28,8 @@ class GemsTask extends \Task
 	 *
 	 * @returns bool
 	 * @throws \BuildException
+	 *
+	 * @deprecated
 	 */
 	public function assertProperty($name, $type)
 	{
@@ -92,6 +94,7 @@ class GemsTask extends \Task
 	 * @return array of files.
 	 *
 	 * @throws \BuildException
+	 * @deprecated
 	 */
 	public function getFiles(array $fileset, $allowEmpty = true)
 	{
@@ -121,6 +124,8 @@ class GemsTask extends \Task
 	 *
 	 * @return string
 	 * @throws \BuildException
+	 *
+	 * @deprecated Move to static class (for easier testing)
 	 */
 	public function shell($command)
 	{
@@ -145,6 +150,8 @@ class GemsTask extends \Task
 	 *
 	 * @param bool   $value Must be true
 	 * @param string $str   The value to set
+	 *
+	 * @deprecated
 	 */
 	public function toggle($value, $str)
 	{

@@ -2,13 +2,17 @@
 
 namespace GemsPhing\Version;
 
+use Belt\_;
 use GemsPhing\GemsAssert;
+use GemsPhing\GemsFile;
 use GemsPhing\GemsTask;
 
 /**
  * IncVersion
  *
  * Increments the build number.
+ *
+ * @package GemsPhing\Version
  */
 class IncVersionTask extends GemsTask
 {
@@ -18,66 +22,43 @@ class IncVersionTask extends GemsTask
 	protected $file;
 
 	/**
-	 * @param string[] $lines
+	 * Increases the last component of the array
 	 *
-	 * @return string[]
-	 * @throws \BuildException
+	 * @param array $version
+	 *
+	 * @return string
 	 */
-	public function inc(array $lines)
+	public static function inc(array $version)
 	{
-		if (empty($lines))
-		{
-			throw new \BuildException("Version file is empty.");
-		}
+		GemsAssert::notEmpty($version, "Unexpected empty array.");
 
-		$version = trim(array_pop($lines));
-		if (empty($version))
-		{
-			throw new \BuildException("Last line of version file is empty.");
-		}
+		$arr = _::create($version);
 
-		$this->log("Version: {$version}");
-
-		// increase the build number
-		$numbers = explode('.', $version);
-		if (count($numbers) != 3)
-		{
-			throw new \BuildException("Bad version format. Must be major.minor.build format.");
-		}
-		foreach ($numbers as $num)
-		{
-			if (!is_numeric($num))
-			{
-				throw new \BuildException("Bad version format. Must be major.minor.build format.");
-			}
-		}
-
-		$numbers[2] = ((int)$numbers[2]) + 1;
-
-		$version = implode(".", $numbers);
-
-		$this->log("Next Version: {$version}");
-
-		// save the changes
-		$lines[] = $version;
-
-		return $lines;
+		return $arr->snip(1)
+				   ->push($arr->pop() + 1)
+				   ->join(".");
 	}
 
 	/**
-	 * Main-Method for the Task
-	 *
 	 * @throws  \BuildException
 	 */
 	public function main()
 	{
-		$contents = trim(GemsAssert::read_file($this->file));
+		GemsAssert::noneEmptyString($this->file, "File parameter not set.");
 
-		$this->log("Reading version: {$this->file}");
+		$text = GemsFile::read($this->file);
+		$lines = GemsFile::toArray($text);
 
-		$lines = explode("\n", $contents);
-		$lines = $this->inc($lines);
-		file_put_contents($this->file, implode("\n", $lines));
+		$version = GemsVersion::get($lines);
+		$str = self::inc($version);
+
+		// replace last line with new version
+		$text = _::create($lines)
+				 ->snip(1)
+				 ->push($str)
+				 ->join(PHP_EOL);
+
+		GemsFile::write($this->file, $text);
 	}
 
 	/**
@@ -87,6 +68,7 @@ class IncVersionTask extends GemsTask
 	 */
 	public function setFile($file)
 	{
+		GemsAssert::noneEmptyString($file, "Expecting a string.");
 		$this->file = $file;
 	}
 }

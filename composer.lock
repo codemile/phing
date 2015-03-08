@@ -4,8 +4,60 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "70f0c6461343337d527ccd7d8b36b7b1",
+    "hash": "f3ac8c9dfe6a38c0823a36ceae7fc7b1",
     "packages": [
+        {
+            "name": "belt/underscore",
+            "version": "v1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beltphp/underscore.git",
+                "reference": "220c2191480b3623526fcf8af729aaca4f519418"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beltphp/underscore/zipball/220c2191480b3623526fcf8af729aaca4f519418",
+                "reference": "220c2191480b3623526fcf8af729aaca4f519418",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "symfony/property-access": "~2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Belt\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Ramon Kleiss",
+                    "email": "ramonkleiss@gmail.com",
+                    "homepage": "http://ramonkleiss.nl",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Pushing square things down round holes",
+            "homepage": "https://github.com/beltphp/underscore",
+            "keywords": [
+                "toolkit",
+                "underscore"
+            ],
+            "time": "2014-12-29 13:53:52"
+        },
         {
             "name": "phing/phing",
             "version": "dev-master",
@@ -97,40 +149,65 @@
             "time": "2015-03-05 20:12:19"
         },
         {
-            "name": "underscore/underscore.php",
-            "version": "1.3.1",
+            "name": "symfony/property-access",
+            "version": "2.7.x-dev",
+            "target-dir": "Symfony/Component/PropertyAccess",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ActiveObject/Underscore.php.git",
-                "reference": "1801b881c2596e9d95ca6628fb62db882f16aa7d"
+                "url": "https://github.com/symfony/PropertyAccess.git",
+                "reference": "7c3a33ba466a61bfdbca7d89118f99cf25a588c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ActiveObject/Underscore.php/zipball/1801b881c2596e9d95ca6628fb62db882f16aa7d",
-                "reference": "1801b881c2596e9d95ca6628fb62db882f16aa7d",
+                "url": "https://api.github.com/repos/symfony/PropertyAccess/zipball/7c3a33ba466a61bfdbca7d89118f99cf25a588c1",
+                "reference": "7c3a33ba466a61bfdbca7d89118f99cf25a588c1",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "~2.7|~3.0.0"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev"
+                }
+            },
             "autoload": {
-                "classmap": [
-                    "underscore.php"
-                ]
+                "psr-0": {
+                    "Symfony\\Component\\PropertyAccess\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
-            "description": "Underscore.php is a PHP port of Underscore.js.",
-            "homepage": "http://brianhaveri.github.com/Underscore.php",
-            "keywords": [
-                "functional",
-                "underscore",
-                "util"
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
             ],
-            "time": "2012-05-08 22:12:27"
+            "description": "Symfony PropertyAccess Component",
+            "homepage": "http://symfony.com",
+            "keywords": [
+                "access",
+                "array",
+                "extraction",
+                "index",
+                "injection",
+                "object",
+                "property",
+                "property path",
+                "reflection"
+            ],
+            "time": "2015-03-07 07:43:00"
         }
     ],
     "packages-dev": [],
