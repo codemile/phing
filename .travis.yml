@@ -6,12 +6,12 @@ php:
 
 script:
   - composer install
-  - composer require satooshi/php-coveralls
+  - composer require codeclimate/php-test-reporter
   - mkdir -p build/logs
   - phpunit --coverage-clover build/logs/clover.xml
 
 after_success:
-  - php vendor/bin/coveralls -v
+  - CODECLIMATE_REPO_TOKEN=62175f03e1f93659c1722042e10c6b9109b97809b9780b86ecc068809cc4b515 ./vendor/bin/test-reporter
 
 notifications:
   slack: cgtag:vMfPenstmAFcQeZnYNVp4H6Y
