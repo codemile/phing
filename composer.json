@@ -1,5 +1,5 @@
 {
-  "name": "thinkingmedia/gems-phing",
+  "name": "thinkingmedia/phing",
   "description": "A collection of custom tasks for Phing",
   "minimum-stability": "dev",
   "license": "MIT",
@@ -11,7 +11,7 @@
   ],
   "require": {
     "phing/phing": "2.*",
-    "thinkingmedia/gems-underscore": "dev-master"
+    "thinkingmedia/underscore": "dev-master"
   },
   "autoload": {
   }

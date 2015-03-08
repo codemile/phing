@@ -7,11 +7,7 @@ php:
 script:
   - composer install
   - composer require codeclimate/php-test-reporter
-  - mkdir -p build/logs
-  - phpunit --coverage-clover build/logs/clover.xml
+  - phpunit
 
 after_success:
-  - CODECLIMATE_REPO_TOKEN=62175f03e1f93659c1722042e10c6b9109b97809b9780b86ecc068809cc4b515 ./vendor/bin/test-reporter
-
-notifications:
-  slack: cgtag:vMfPenstmAFcQeZnYNVp4H6Y
+  - CODECLIMATE_REPO_TOKEN=00cf98675c9bc3572873a4748cbf14615e3b5a0c8ec7143a734cea40efac3e34 ./vendor/bin/test-reporter

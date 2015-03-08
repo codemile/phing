@@ -1,5 +1,4 @@
 <phpunit bootstrap="tests/bootstrap.php">
-    <!-- A filter to make sure we don't count tests in the code coverage report -->
     <filter>
         <whitelist>
             <directory suffix=".php">./src</directory>
@@ -14,4 +13,9 @@
             <directory suffix=".Test.php">tests/GemsPhing/**</directory>
         </testsuite>
     </testsuites>
+
+    <logging>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+    </logging>
+
 </phpunit>
