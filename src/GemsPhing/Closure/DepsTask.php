@@ -1,14 +1,14 @@
 <?php
 
-require_once dirname(__DIR__)."/BuildTask.php";
+use GemsPhing\GemsTask;
 
 /**
  * Handles executing Google's Closure Dependency generator for JavaScript.
  */
-class DepsTask extends BuildTask
+class DepsTask extends GemsTask
 {
 	/**
-	 * @var FileSet[] A collection of FileSet objects.
+	 * @var \FileSet[] A collection of FileSet objects.
 	 */
 
 	private $filesets = array();
@@ -29,11 +29,11 @@ class DepsTask extends BuildTask
 	private $prefix;
 
 	/**
-	 * @return FileSet The new file set object.
+	 * @return \FileSet The new file set object.
 	 */
 	public function createFileSet()
 	{
-		$num = array_push($this->filesets, new FileSet());
+		$num = array_push($this->filesets, new \FileSet());
 
 		return $this->filesets[$num - 1];
 	}

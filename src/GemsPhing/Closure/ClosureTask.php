@@ -1,12 +1,11 @@
 <?php
 
-require_once dirname(__DIR__)."/BuildTask.php";
-require_once dirname(__DIR__)."/SourceMap.php";
+use GemsPhing\GemsTask;
 
 /**
  * Handles executing Google's Closure Compiler for JavaScript.
  */
-class ClosureTask extends BuildTask
+class ClosureTask extends GemsTask
 {
 
 	/**
@@ -14,7 +13,7 @@ class ClosureTask extends BuildTask
 	 */
 	private $entry = false;
 	/**
-	 * @var FileSet[] A collection of FileSet objects.
+	 * @var \FileSet[] A collection of FileSet objects.
 	 */
 	private $filesets = array();
 	/**
@@ -35,11 +34,11 @@ class ClosureTask extends BuildTask
 	private $webroot = false;
 
 	/**
-	 * @return FileSet The new file set object.
+	 * @return \FileSet The new file set object.
 	 */
 	public function createFileSet()
 	{
-		$num = array_push($this->filesets, new FileSet());
+		$num = array_push($this->filesets, new \FileSet());
 
 		return $this->filesets[$num - 1];
 	}
@@ -66,11 +65,11 @@ class ClosureTask extends BuildTask
 	{
 		if ($this->output === false)
 		{
-			throw new BuildException("You must specify an output file.", $this->location);
+			throw new \BuildException("You must specify an output file.", $this->location);
 		}
 		if ($this->entry === false)
 		{
-			throw new BuildException("You must specify an entry point for the compiler.", $this->location);
+			throw new \BuildException("You must specify an entry point for the compiler.", $this->location);
 		}
 
 		$closure_library = "..\\..\\closure-library";
@@ -85,13 +84,13 @@ class ClosureTask extends BuildTask
 			$dir = realpath($scanner->getBasedir());
 			if (!file_exists($dir))
 			{
-				throw new BuildException("Directory doesn't exist: $dir");
+				throw new \BuildException("Directory doesn't exist: $dir");
 			}
 			$files[] = "--root=".$dir;
 		}
 		if (empty($files))
 		{
-			throw new BuildException("No directories found to compile.", $this->location);
+			throw new \BuildException("No directories found to compile.", $this->location);
 		}
 
 		// add files to parameters.

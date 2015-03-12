@@ -14,5 +14,8 @@
     "thinkingmedia/underscore": "dev-master"
   },
   "autoload": {
+    "psr-0": {
+      "": "src/"
+    }
   }
 }
