@@ -3,15 +3,23 @@
 use GemsPhing\GemsTask;
 
 /**
+ * @readme Tasks
+ *
+ * ###DepsTask
+ *
  * Handles executing Google's Closure Dependency generator for JavaScript.
  *
- * @readme
+ * Name | Type | Description | Default | Required
+ * -----|------|-------------|---------|---------
+ * output | string | The relative output path for the deps.js file. | n/a | Yes
+ * library | string | The relative location to the closure library | n/a | Yes
+ * prefix | string | A URL prefix to load JS files relative to goog/base.js | n/a | Yes
  *
  * ```xml
  * <taskdef name="deps" classname="GemsPhing.Closure.DepsTask"/>
  *
  * <deps output="www/deps.js" library="./www/closure-library" prefix="../../../src/cgTag">
- * 		<fileset dir="./www/src/cgTag"/>
+ *        <fileset dir="./www/src/cgTag"/>
  * </deps>
  * ```
  */
@@ -22,6 +30,7 @@ class DepsTask extends GemsTask
 	 */
 
 	private $filesets = array();
+
 	/**
 	 * @var string The location of the google closure library.
 	 * @see https://github.com/google/closure-library
@@ -73,7 +82,7 @@ class DepsTask extends GemsTask
 		$DS = DIRECTORY_SEPARATOR;
 
 		$params = [
-			//"--root={$this->library}{$DS}closure{$DS}goog"
+			"--root={$this->library}{$DS}closure{$DS}goog"
 		];
 
 		foreach ($this->filesets as $fs)
