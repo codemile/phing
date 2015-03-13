@@ -21,7 +21,7 @@ Here is an empty `build.xml` file to get you started.
         </target>
     </project>
 
-# Installation [![Latest Stable Version](https://poser.pugx.org/thinkingmedia/phing/v/stable.svg)](https://packagist.org/packages/thinkingmedia/phing)
+## Installation [![Latest Stable Version](https://poser.pugx.org/thinkingmedia/phing/v/stable.svg)](https://packagist.org/packages/thinkingmedia/phing)
 ==============================
 
 Install using composer:
@@ -31,7 +31,7 @@ Install using composer:
 [![Total Downloads](https://poser.pugx.org/thinkingmedia/phing/downloads.svg)](https://packagist.org/packages/thinkingmedia/phing) 
 [![Latest Unstable Version](https://poser.pugx.org/thinkingmedia/phing/v/unstable.svg)](https://packagist.org/packages/thinkingmedia/phing) 
 
-# Unit Tests [![Test Coverage](https://codeclimate.com/github/thinkingmedia/phing/badges/coverage.svg)](https://codeclimate.com/github/thinkingmedia/phing)
+## Unit Tests [![Test Coverage](https://codeclimate.com/github/thinkingmedia/phing/badges/coverage.svg)](https://codeclimate.com/github/thinkingmedia/phing)
 ==============================
 
 For running unit tests you need phpunit. After installing, you can run the unit test suite by running:
@@ -39,23 +39,23 @@ For running unit tests you need phpunit. After installing, you can run the unit 
     $ phpunit
  
 
-# Requirements
+## Requirements
 ==============================
 
 - ThinkingMedia/Phing requires Phing 2.x or above, but is not listed as a dependency in composer.
 
-# Submitting bugs and feature requests
+## Submitting bugs and feature requests
 ==============================
 
 Bugs and feature requests are tracked on [GitHub](https://github.com/thinkingmedia/phing/issues)
 
-# Author
+## Author
 ==============================
 
 Mathew Foscarini - <support@thinkingmedia.ca> - <http://www.thinkingmedia.ca>
 See also the list of [contributors](https://github.com/thinkingmedia/phing/contributors) which participated in this project.
 
-# License
+## License
 ==============================
 
 Phing is licensed under the MIT License - see the `LICENSE` file for details.
