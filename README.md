@@ -48,6 +48,7 @@ Bugs and feature requests are tracked on [GitHub](https://github.com/thinkingmed
 ## Author
 
 Mathew Foscarini - <support@thinkingmedia.ca> - <http://www.thinkingmedia.ca>
+
 See also the list of [contributors](https://github.com/thinkingmedia/phing/contributors) which participated in this project.
 
 ## License
