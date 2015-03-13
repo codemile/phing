@@ -4,6 +4,16 @@ use GemsPhing\GemsTask;
 
 /**
  * Handles executing Google's Closure Dependency generator for JavaScript.
+ *
+ * @readme
+ *
+ * ```xml
+ * <taskdef name="deps" classname="GemsPhing.Closure.DepsTask"/>
+ *
+ * <deps output="www/deps.js" library="./www/closure-library" prefix="../../../src/cgTag">
+ * 		<fileset dir="./www/src/cgTag"/>
+ * </deps>
+ * ```
  */
 class DepsTask extends GemsTask
 {
