@@ -1,13 +1,13 @@
-# ThinkingMedia/Phing - Custom tasks for PHP Phing [![Build Status](https://travis-ci.org/thinkingmedia/phing.svg)](https://travis-ci.org/thinkingmedia/phing)
+# ThinkingMedia/Phing [![Build Status](https://travis-ci.org/thinkingmedia/phing.svg)](https://travis-ci.org/thinkingmedia/phing)
 
+## Custom tasks for PHP Phing
 
 [![Code Climate](https://codeclimate.com/github/thinkingmedia/phing/badges/gpa.svg)](https://codeclimate.com/github/thinkingmedia/phing)
 [![License](https://poser.pugx.org/thinkingmedia/phing/license.svg)](https://packagist.org/packages/thinkingmedia/phing)
 
 ThinkingMedia/Phing is a collection of custom Phing tasks that we use daily on our web development projects.
 
-# Usage
-==============================
+## Usage
 
 ThinkingMedia/Phing are Phing custom tasks implemented with PSR-0 namespaces and installed in your project via composer. You need to
 include the composer autoloader and include the ThinkingMedia/Phing project path before you can use them.
