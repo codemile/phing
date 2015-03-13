@@ -1,7 +1,5 @@
 # ThinkingMedia/Phing [![Build Status](https://travis-ci.org/thinkingmedia/phing.svg)](https://travis-ci.org/thinkingmedia/phing)
 
-## Custom tasks for PHP Phing
-
 [![Code Climate](https://codeclimate.com/github/thinkingmedia/phing/badges/gpa.svg)](https://codeclimate.com/github/thinkingmedia/phing)
 [![License](https://poser.pugx.org/thinkingmedia/phing/license.svg)](https://packagist.org/packages/thinkingmedia/phing)
 
