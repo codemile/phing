@@ -20,6 +20,27 @@ Here is an empty `build.xml` file to get you started.
         <target name="build">
         </target>
     </project>
+    
+## Tasks
+
+###DepsTask
+
+Handles executing Google's Closure Dependency generator for JavaScript.
+
+Name | Type | Description | Default | Required
+-----|------|-------------|---------|---------
+output | string | The relative output path for the deps.js file. | n/a | Yes
+library | string | The relative location to the closure library | n/a | Yes
+prefix | string | A URL prefix to load JS files relative to goog/base.js | n/a | Yes
+
+```xml
+<taskdef name="deps" classname="GemsPhing.Closure.DepsTask"/>
+
+<deps output="www/deps.js" library="./www/closure-library" prefix="../../../src/cgTag">
+    <fileset dir="./www/src/cgTag"/>
+</deps>
+```
+
 
 ## Installation [![Latest Stable Version](https://poser.pugx.org/thinkingmedia/phing/v/stable.svg)](https://packagist.org/packages/thinkingmedia/phing)
 
