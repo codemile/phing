@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__."/ScaffoldComponentsTask.php";
+use GemsPhing\Scaffold\ScaffoldComponentsTask;
 
 class ScaffoldSASSTask extends ScaffoldComponentsTask
 {

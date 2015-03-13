@@ -1,14 +1,17 @@
 <?php
 
-require_once dirname(__DIR__)."/BuildTask.php";
+namespace GemsPhing\Scaffold;
+
+use GemsPhing\GemsString;
+use GemsPhing\GemsTask;
 
 /**
  * Base task that handles the walking of a directory tree.
  */
-abstract class DirTreeTask extends BuildTask
+abstract class DirTreeTask extends GemsTask
 {
 	/**
-	 * @var FileSet[] A collection of FileSet objects.
+	 * @var \FileSet[] A collection of FileSet objects.
 	 */
 	private $filesets = array();
 
@@ -18,11 +21,11 @@ abstract class DirTreeTask extends BuildTask
 	private $root;
 
 	/**
-	 * @return FileSet The new file set object.
+	 * @return \FileSet The new file set object.
 	 */
 	public function createFileSet()
 	{
-		$num = array_push($this->filesets, new FileSet());
+		$num = array_push($this->filesets, new \FileSet());
 
 		return $this->filesets[$num - 1];
 	}
@@ -40,8 +43,8 @@ abstract class DirTreeTask extends BuildTask
 	{
 		if (empty($this->root))
 		{
-			throw new BuildException("You must specify the root folder, or the root folder does not exist.",
-									 $this->location);
+			throw new \BuildException("You must specify the root folder, or the root folder does not exist.",
+									  $this->location);
 		}
 
 		$DS = DIRECTORY_SEPARATOR;
@@ -55,7 +58,7 @@ abstract class DirTreeTask extends BuildTask
 				$parts = explode($DS, substr($dir, strlen($this->root) + 1));
 				$package = array_pop($parts);
 
-				if (buildTask::startsWith($dir, '.') || buildTask::startsWith($package, '.'))
+				if (GemsString::startsWith($dir, '.') || GemsString::startsWith($package, '.'))
 				{
 					continue;
 				}

@@ -1,11 +1,12 @@
 <?php
-
-require_once __DIR__."/ScaffoldComponentsTask.php";
+use GemsPhing\Scaffold\AbstractScaffoldTask;
 
 /**
+ * @readme Tasks ScaffoldJasmineTask
+ *
  * Creates empty unit test files in each component folder.
  */
-class ScaffoldJasmineTask extends ScaffoldComponentsTask
+class ScaffoldJasmineTask extends AbstractScaffoldTask
 {
 	/**
 	 * @param string $dir

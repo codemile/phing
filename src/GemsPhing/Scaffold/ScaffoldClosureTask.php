@@ -1,11 +1,13 @@
 <?php
 
-require_once __DIR__."/ScaffoldComponentsTask.php";
+use GemsPhing\Scaffold\AbstractScaffoldTask;
 
 /**
+ * @readme Tasks ScaffoldClosureTask
+ *
  * Handles the creation of the _All.js and _Package.js files.
  */
-class ScaffoldClosureTask extends ScaffoldComponentsTask
+class ScaffoldClosureTask extends AbstractScaffoldTask
 {
 	/**
 	 * @param string $dir

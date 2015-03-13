@@ -1,11 +1,13 @@
 <?php
 
-require_once __DIR__."/DirTreeTask.php";
+namespace GemsPhing\Scaffold;
+
+use GemsPhing\GemsString;
 
 /**
  * Class ScaffoldComponentsTask
  */
-abstract class ScaffoldComponentsTask extends DirTreeTask
+abstract class AbstractScaffoldTask extends DirTreeTask
 {
 	/**
 	 * @var string Directories that start with this string will be handled as component folders.
@@ -39,7 +41,7 @@ abstract class ScaffoldComponentsTask extends DirTreeTask
 		asort($files);
 		foreach ($files as $file)
 		{
-			if (!BuildTask::startsWith($file, self::PREFIX) || !is_dir($dir.$DS.$file))
+			if (!GemsString::startsWith($file, self::PREFIX) || !is_dir($dir.$DS.$file))
 			{
 				continue;
 			}
@@ -79,7 +81,7 @@ abstract class ScaffoldComponentsTask extends DirTreeTask
 		asort($files);
 		foreach ($files as $file)
 		{
-			if (BuildTask::startsWith($file,'.') || BuildTask::startsWith($file, self::PREFIX) || is_file($dir.$DS.$file))
+			if (GemsString::startsWith($file,'.') || GemsString::startsWith($file, self::PREFIX) || is_file($dir.$DS.$file))
 			{
 				continue;
 			}
@@ -96,7 +98,7 @@ abstract class ScaffoldComponentsTask extends DirTreeTask
 	 */
 	protected function directory($dir, $package, array $parts)
 	{
-		if (BuildTask::startsWith($package, self::PREFIX) && $package != 'cgTag')
+		if (GemsString::startsWith($package, self::PREFIX) && $package != 'cgTag')
 		{
 			$this->updateComponentFolder($dir, $package, $parts);
 
