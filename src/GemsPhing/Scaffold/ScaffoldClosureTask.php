@@ -1,5 +1,6 @@
 <?php
 
+use GemsPhing\GemsString;
 use GemsPhing\Scaffold\AbstractScaffoldTask;
 
 /**
@@ -35,6 +36,22 @@ class ScaffoldClosureTask extends AbstractScaffoldTask
 	}
 
 	/**
+	 * Adds a blank line if the last element is not blank.
+	 *
+	 * @param array $lines
+	 *
+	 * @return array
+	 */
+	private static function space(array $lines)
+	{
+		if(end($lines) != '')
+		{
+			$lines[] = '';
+		}
+		return $lines;
+	}
+
+	/**
 	 * @param string $dir
 	 * @param string $package
 	 * @param array  $parts
@@ -61,11 +78,24 @@ class ScaffoldClosureTask extends AbstractScaffoldTask
 		{
 			$lines[] = sprintf('goog.require("%s.%s.All");', $name, $folder);
 		});
+		$lines = self::space($lines);
 
 		self::eachComponent($dir, function ($component) use ($name, &$lines)
 		{
 			$lines[] = sprintf('goog.require("%s.%s");', $name, $component);
 		});
+		$lines = self::space($lines);
+
+		self::eachFile($dir, function ($file) use ($name, &$lines)
+		{
+			if(GemsString::endsWith($file,".js")
+				&& !GemsString::startsWith($file,"_")
+				&& !GemsString::endsWith($file,".Test.js"))
+			{
+				$lines[] = sprintf('goog.require("%s.%s");', $name, substr($file,0,-3));
+			}
+		});
+		$lines = self::space($lines);
 
 		return $lines;
 	}
