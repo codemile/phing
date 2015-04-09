@@ -2,7 +2,7 @@
 
 namespace GemsPhing\Version;
 
-use Belt\_;
+use Underscore\_;
 use GemsPhing\GemsAssert;
 use GemsPhing\GemsFile;
 use GemsPhing\GemsTask;

@@ -1,13 +1,13 @@
 <?php
 
-require_once dirname(__DIR__)."/BuildTask.php";
+use GemsPhing\GemsTask;
 
 /**
  * DatabaseUpdater
  *
  * Handles the incremental updating of a database.
  */
-class DatabaseUpdaterTask extends BuildTask
+class DatabaseUpdaterTask extends GemsTask
 {
 	/**
 	 * Property for Database name

@@ -1,13 +1,13 @@
 <?php
 
-require_once dirname(__DIR__)."/BuildTask.php";
+use GemsPhing\GemsTask;
 
 /**
  * DatabaseExists
  *
  * Checks if the database contains any tables.
  */
-class DatabaseExistsTask extends BuildTask
+class DatabaseExistsTask extends GemsTask
 {
 	/**
 	 * Property for Database name

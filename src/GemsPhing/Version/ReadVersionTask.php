@@ -1,6 +1,6 @@
 <?php
 
-namespace GemsPhing\Version
+namespace GemsPhing\Version;
 
 use GemsPhing\GemsTask;
 

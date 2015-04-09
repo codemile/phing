@@ -1,13 +1,13 @@
 <?php
 
-require_once dirname(__DIR__)."/BuildTask.php";
+use GemsPhing\GemsTask;
 
 /**
  * MySQL
  *
  * Sends a SQL file to MySQL for execution on a database.
  */
-class MySQLTask extends BuildTask
+class MySQLTask extends GemsTask
 {
 	/**
 	 * Property for Database name

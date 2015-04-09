@@ -1,13 +1,13 @@
 <?php
 
-require_once dirname(__DIR__)."/BuildTask.php";
+use GemsPhing\GemsTask;
 
 /**
  * MySQL
  *
  * Exports a database to a SQL file.
  */
-class MySQLDumpTask extends BuildTask
+class MySQLDumpTask extends GemsTask
 {
 	/**
 	 * Property for Database name

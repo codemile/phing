@@ -12,7 +12,28 @@ abstract class AbstractScaffoldTask extends DirTreeTask
 	/**
 	 * @var string Directories that start with this string will be handled as component folders.
 	 */
-	const PREFIX = 'cg';
+	public $prefix = 'cg';
+
+	/**
+	 * @var string The name of the top-most directory.
+	 */
+	public $parent = 'cgTag';
+
+	/**
+	 * @param string $str Directories that start with this string will be handled as component folders.
+	 */
+	public function setPrefix($str)
+	{
+		$this->prefix = $str;
+	}
+
+	/**
+	 * @param string $str The name of the top-most directory.
+	 */
+	public function setParent($str)
+	{
+		$this->parent = $str;
+	}
 
 	/**
 	 * @param string $dir
@@ -34,14 +55,14 @@ abstract class AbstractScaffoldTask extends DirTreeTask
 	 * @param string           $dir
 	 * @param callable(string) $func
 	 */
-	protected static function eachComponent($dir, $func)
+	protected function eachComponent($dir, $func)
 	{
 		$DS = DIRECTORY_SEPARATOR;
 		$files = scandir($dir);
 		asort($files);
 		foreach ($files as $file)
 		{
-			if (!GemsString::startsWith($file, self::PREFIX) || !is_dir($dir.$DS.$file))
+			if (!GemsString::startsWith($file, $this->prefix) || !is_dir($dir.$DS.$file))
 			{
 				continue;
 			}
@@ -50,17 +71,17 @@ abstract class AbstractScaffoldTask extends DirTreeTask
 	}
 
 	/**
-	 * @param string $dir
+	 * @param string           $dir
 	 * @param callback(string) $func
 	 */
-	protected static function eachFile($dir, $func)
+	protected function eachFile($dir, $func)
 	{
 		$DS = DIRECTORY_SEPARATOR;
 		$files = scandir($dir);
 		asort($files);
-		foreach($files as $file)
+		foreach ($files as $file)
 		{
-			if(!is_file($dir.$DS.$file))
+			if (!is_file($dir.$DS.$file))
 			{
 				continue;
 			}
@@ -74,14 +95,15 @@ abstract class AbstractScaffoldTask extends DirTreeTask
 	 * @param string           $dir
 	 * @param callable(string) $func
 	 */
-	protected static function eachDirectory($dir, $func)
+	protected function eachDirectory($dir, $func)
 	{
 		$DS = DIRECTORY_SEPARATOR;
 		$files = scandir($dir);
 		asort($files);
 		foreach ($files as $file)
 		{
-			if (GemsString::startsWith($file,'.') || GemsString::startsWith($file, self::PREFIX) || is_file($dir.$DS.$file))
+			$skip = GemsString::startsWith($file, '.') || GemsString::startsWith($file, $this->prefix);
+			if ($skip || is_file($dir.$DS.$file))
 			{
 				continue;
 			}
@@ -98,7 +120,7 @@ abstract class AbstractScaffoldTask extends DirTreeTask
 	 */
 	protected function directory($dir, $package, array $parts)
 	{
-		if (GemsString::startsWith($package, self::PREFIX) && $package != 'cgTag')
+		if (GemsString::startsWith($package, $this->prefix) && $package != $this->parent)
 		{
 			$this->updateComponentFolder($dir, $package, $parts);
 
@@ -122,9 +144,7 @@ abstract class AbstractScaffoldTask extends DirTreeTask
 		$this->log($file);
 
 		$contents = implode(PHP_EOL, $lines).PHP_EOL;
-		$previous = file_exists($file)
-			? file_get_contents($file)
-			: '';
+		$previous = file_exists($file) ? file_get_contents($file) : '';
 		if ($previous != $contents)
 		{
 			file_put_contents($file, $contents);

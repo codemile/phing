@@ -85,7 +85,7 @@ class ScaffoldSASSTask extends AbstractScaffoldTask
 			''
 		];
 
-		self::eachDirectory($dir, function ($folder) use ($dir, $DS, &$lines)
+		$this->eachDirectory($dir, function ($folder) use ($dir, $DS, &$lines)
 		{
 			if (file_exists($dir.$DS.$folder.$DS."_All.scss"))
 			{
@@ -93,7 +93,7 @@ class ScaffoldSASSTask extends AbstractScaffoldTask
 			}
 		});
 
-		self::eachComponent($dir, function ($component) use ($dir, $DS, &$lines)
+		$this->eachComponent($dir, function ($component) use ($dir, $DS, &$lines)
 		{
 			if (file_exists($dir.$DS.$component.$DS.$component.".scss"))
 			{

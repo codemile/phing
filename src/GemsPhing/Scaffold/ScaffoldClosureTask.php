@@ -74,19 +74,19 @@ class ScaffoldClosureTask extends AbstractScaffoldTask
 			''
 		);
 
-		self::eachDirectory($dir, function ($folder) use ($name, &$lines)
+		$this->eachDirectory($dir, function ($folder) use ($name, &$lines)
 		{
 			$lines[] = sprintf('goog.require("%s.%s.All");', $name, $folder);
 		});
 		$lines = self::space($lines);
 
-		self::eachComponent($dir, function ($component) use ($name, &$lines)
+		$this->eachComponent($dir, function ($component) use ($name, &$lines)
 		{
 			$lines[] = sprintf('goog.require("%s.%s");', $name, $component);
 		});
 		$lines = self::space($lines);
 
-		self::eachFile($dir, function ($file) use ($name, &$lines)
+		$this->eachFile($dir, function ($file) use ($name, &$lines)
 		{
 			if(GemsString::endsWith($file,".js")
 				&& !GemsString::startsWith($file,"_")
