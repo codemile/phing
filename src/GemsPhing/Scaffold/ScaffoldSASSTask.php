@@ -1,8 +1,9 @@
 <?php
 
-use GemsPhing\Scaffold\ScaffoldComponentsTask;
+use GemsPhing\GemsString;
+use GemsPhing\Scaffold\AbstractScaffoldTask;
 
-class ScaffoldSASSTask extends ScaffoldComponentsTask
+class ScaffoldSASSTask extends AbstractScaffoldTask
 {
 	/**
 	 * @var array Components that end with one of these strings will not have SASS files.
@@ -60,7 +61,7 @@ class ScaffoldSASSTask extends ScaffoldComponentsTask
 	{
 		foreach (self::$tails as $tail)
 		{
-			if (BuildTask::endsWith($package, $tail))
+			if (GemsString::endsWith($package, $tail))
 			{
 				return false;
 			}
@@ -122,7 +123,7 @@ class ScaffoldSASSTask extends ScaffoldComponentsTask
 
 		self::eachFile($dir, function ($file) use ($dir, $DS, &$lines)
 		{
-			if(!BuildTask::endsWith($file,".scss") || $file == '_All.scss' || $file == '_Package.scss')
+			if(!GemsString::endsWith($file,".scss") || $file == '_All.scss' || $file == '_Package.scss')
 			{
 				return;
 			}

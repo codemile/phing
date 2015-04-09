@@ -1,4 +1,5 @@
 <?php
+
 use GemsPhing\Scaffold\AbstractScaffoldTask;
 
 /**
