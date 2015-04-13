@@ -95,7 +95,7 @@ class ScaffoldSASSTask extends AbstractScaffoldTask
 
 		$this->eachComponent($dir, function ($component) use ($dir, $DS, &$lines)
 		{
-			if (file_exists($dir.$DS.$component.$DS.$component.".scss"))
+			if (file_exists($dir.$DS.$component.$DS.'_'.$component.".scss"))
 			{
 				$lines[] = sprintf('@import "%s/%s";', $component, $component);
 			}
