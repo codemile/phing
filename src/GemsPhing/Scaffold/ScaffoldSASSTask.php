@@ -25,7 +25,7 @@ class ScaffoldSASSTask extends AbstractScaffoldTask
 		}
 
 		$DS = DIRECTORY_SEPARATOR;
-		$sass = $dir.$DS.$package.".scss";
+		$sass = $dir.$DS.'_'.$package.".scss";
 		$this->writeFile($sass, $this->getComponent($package, $parts));
 
 		// fix the config import
