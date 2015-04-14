@@ -11,7 +11,7 @@
   ],
   "require": {
     "phing/phing": "2.*",
-    "thinkingmedia/underscore": "dev-master"
+    "thinkingmedia/underscore": "~1.0"
   },
   "autoload": {
     "psr-0": {
